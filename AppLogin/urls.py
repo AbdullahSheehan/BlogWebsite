@@ -10,6 +10,6 @@ urlpatterns = [
     path('profile/', views.profileUser, name="profile"),
     path('editProfile/', views.editProfile, name="editProfile"),
     path('addPicture/', views.addPicture, name="addPicture"),
-    path('changePicture', views.changePicture, name="changePicture"),
-    path('passwordChange', views.passwordChange, name="passwordChange"),
+    path('changePicture/', views.changePicture, name="changePicture"),
+    path('passwordChange/', views.passwordChange, name="passwordChange"),
 ]

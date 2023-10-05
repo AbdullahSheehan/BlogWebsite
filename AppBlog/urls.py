@@ -8,7 +8,7 @@ urlpatterns = [
     path('create/', views.CreateBlog.as_view(), name="create"),
     path('list/', views.BlogList.as_view(), name="list"),
     path('edit/', views.UpdateBlog.as_view(), name="edit"),
-    path('details/', views.blogDetails, name="details"),
-    path('liked/', views.liked, name="liked"),
-    path('unliked/', views.unliked, name="unliked"),
+    path('details/<slug>/', views.blogDetails, name="details"),
+    path('liked/<int:pk>/', views.liked, name="liked"),
+    path('unliked/<int:pk>/', views.unliked, name="unliked"),
 ]

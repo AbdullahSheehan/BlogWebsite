@@ -1,8 +1,39 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block title %}
-
+    Profile of {{user.username}}
 {% endblock title %}
 {% block body %}
-
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table table-bordered">
+                <thead>
+                    <th colspan="2">Personal Info</th>
+                </thead>
+                <tr>
+                    <td>First Name</td>
+                    <td>{{user.first_name}}</td>
+                </tr>
+                <tr>
+                    <td>Last Name</td>
+                    <td>{{user.last_name}}</td>
+                </tr>
+                <tr>
+                    <td>Email Address</td>
+                    <td><a href="mailto:{{user.email}}">{{user.email}}</a></td>
+                </tr>
+            </table>
+            <a href="{% url 'Applogin:editProfile' %}" class="btn btn-primary mt-5">Update your Profile!</a>
+        </div>
+        <div class="col-sm-6 d-flex flex-column justify-content-center align-items-center">
+            {% if user.user_info %}
+        <img src="/media/{{user.user_info.profilepic}}" alt="Profile Picture" class="mb-3 rounded rounded-circle border border-primary border-3" style="width: 300px;">
+        <a href="{% url 'Applogin:changePicture' %}" class="btn btn-info">Change Picture</a>
+        {% else %}
+        <img src="/media/default.jpg" alt="Profile Picture" class="mb-3 rounded rounded-circle border border-primary border-3">
+        <a href="{% url 'Applogin:addPicture' %}" class="btn btn-info">Add Picture</a>
+        {% endif %}
+        </div>
+    </div>
+    
 {% endblock body %}

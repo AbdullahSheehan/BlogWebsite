@@ -5,7 +5,7 @@ class Blog(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author_name')
     title = models.CharField(max_length=200)
     content = models.TextField()
-    slug = models.SlugField(max_length=500, unique=True)
+    slug = models.SlugField(max_length=300, unique=True)
     publish = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
     images = models.ImageField(upload_to='blogImages/', verbose_name="Image")
