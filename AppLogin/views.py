@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from .forms import SignUpForm, ProfileChangeForm, ProfilePic
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from django.contrib.auth import login, logout, authenticate
 # Create your views here.
@@ -32,11 +33,14 @@ def loginUser(req):
         else:
             hasError = True
     return render(req, 'Applogin/login.html', context = {'form':form, 'error':hasError})
+@login_required
 def logoutUser(req):
     logout(req)
     return HttpResponseRedirect(reverse('Applogin:login'))
+@login_required
 def profileUser(req):
     return render(req, 'Applogin/profile.html', context = {})
+@login_required
 def editProfile(req):
     current_user = req.user
     form = ProfileChangeForm(instance=current_user)
@@ -46,6 +50,7 @@ def editProfile(req):
             form.save()
             return HttpResponseRedirect(reverse('Applogin:profile'))
     return render(req, 'Applogin/editProfile.html', context = {'form':form})
+@login_required
 def addPicture(req):
     form = ProfilePic()
     if req.method == 'POST':
@@ -56,6 +61,7 @@ def addPicture(req):
             user_obj.save()
             return HttpResponseRedirect(reverse('Applogin:profile'))
     return render(req, 'Applogin/addPic.html', context = {'form':form})
+@login_required
 def changePicture(req):
     form = ProfilePic(instance=req.user.user_info)
     if req.method == 'POST':
@@ -64,6 +70,7 @@ def changePicture(req):
             form.save()
             return HttpResponseRedirect(reverse('Applogin:profile'))
     return render(req, 'Applogin/addPic.html', context = {'form':form})
+@login_required
 def passwordChange(req):
     current_user = req.user
     form = PasswordChangeForm(current_user)
