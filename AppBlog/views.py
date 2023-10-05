@@ -30,9 +30,12 @@ class UpdateBlog(UpdateView):
     model = Blog
     template_name = 'AppBlog/blogEdit.html'
     fields = ('title', 'content', 'images')
-
     def get_success_url(self):
-        return reverse_lazy('index')             ## NEED CHANGE
+        return reverse_lazy('Appblog:details', kwargs={'slug':self.object.slug})
+def deleteBlog(self, pk):
+    blog = Blog.objects.get(pk=pk)
+    blog.delete()
+    return HttpResponseRedirect(reverse('Appblog:myBlogs'))
 def blogDetails(req, slug):
     blog = Blog.objects.get(slug=slug)
     form = CommentForm()

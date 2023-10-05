@@ -1,8 +1,22 @@
 {% extends "base.html" %}
+{% load custom_filters %}
 {% load crispy_forms_tags %}
 {% block title %}
-  
+{{user}}
 {% endblock title %}
 {% block body %}
-  
+  {% for blog in user.author_name.all %}
+  <div class="card mb-3 p-4">
+    <img src="/media/{{blog.images}}" class="card-img-top" alt="..." style="width: 200px;">
+    <div class="card-body">
+        <h5 class="card-title">{{blog.title}}</h5>
+        <h6 class="card-subtitle">@{{blog.author}}</h6>
+        <p class="card-text">{{blog.content|shortIt|linebreaks}} <a href="{% url 'Appblog:details' slug=blog.slug %}">Read More...</a></p>
+        <p class="card-text"><small class="text-body-secondary">Last Updated: {{blog.update}}</small></p>
+        <h6>{{blog.blog_name.count}} Likes | {{blog.blog_comment.count }} Comments </h6>
+        <a href="{% url 'Appblog:edit' pk=blog.pk %}" class="btn btn-info">Edit Blog</a>
+        <a href="{% url 'Appblog:delete' pk=blog.pk %}" class="btn btn-danger" onclick="return confirm('Are you sure to delete this blog?')">Delete Blog</a>
+    </div>
+  </div>
+  {% endfor %}
 {% endblock body %}
